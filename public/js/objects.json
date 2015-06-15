@@ -2,41 +2,64 @@
 	"pages" : [{
 			"id" : "p1",
 			"label" : "Favorites",
-			"items" : ["i1", "i2"]
+			"url" : "#favorites",
+			"items" : ["l1", "l2", "l3", "l4", "d1", "d2", "t1"]
 		}, {
 			"id" : "p2",
-			"label" : "Room 1",
-			"items" : ["i3", "i4"]
+			"label" : "Living room",
+			"url" : "#living",
+			"items" : ["l1", "l2","d1","t1"]
 		}, {
 			"id" : "p3",
-			"label" : "Room 2",
-			"items" : ["i1", "i3"]
+			"label" : "Kitchen",
+			"url" : "#kitchen",
+			"items" : ["l3", "d2"]
 		}, {
 			"id" : "p4",
-			"label" : "Room 3",
-			"items" : ["i2", "i4"]
+			"label" : "Hallway",
+			"url" : "#hallway",
+			"items" : ["l4", "d1","d2"]
+		},{
+			"id" : "p5",
+			"label" : "Setup",
+			"url" : "setup.html"
 		}
 	],
 	"items" : [{
-			"id" : "i1",
-			"label" : "Item 1",
+			"id" : "l1",
+			"label" : "Lamp 1",
 			"type" : "toggle",
-			"topic" : "a/a"
+			"topic" : "lamps/l1"
 		}, {
-			"id" : "i2",
-			"label" : "Item 2",
+			"id" : "l2",
+			"label" : "Lamp 2",
+			"type" : "toggle",
+			"topic" : "lamps/l2"
+		}, {	
+			"id" : "l3",
+			"label" : "Lamp 3",
+			"type" : "toggle",
+			"topic" : "lamps/l3"
+		}, {
+			"id" : "l4",
+			"label" : "Lamp 4",
+			"type" : "toggle",
+			"topic" : "lamps/l4"
+		}, {
+			"id" : "d1",
+			"label" : "Door 1",
 			"type" : "output",
-			"topic" : "a/b"
+			"topic" : "doors/d1"
 		}, {
-			"id" : "i3",
-			"label" : "Item 3",
-			"type" : "button",
-			"topic" : "b/a"
+			"id" : "d2",
+			"label" : "Door 2",
+			"type" : "output",
+			"topic" : "doors/d2"
 		}, {
-			"id" : "i4",
-			"label" : "Item 4",
-			"type" : "input",
-			"topic" : "b/b"
+			"id" : "t1",
+			"label" : "Temp 1",
+			"type" : "temp",
+			"topic" : "temps/t1"
 		}
 	]
 }
