@@ -1,0 +1,33 @@
+{
+    "comment": "File with values for each of the sensors, this file should be replaced by an MQTT feed later on",
+    "values": [
+        {
+            "topic": "lamps/l1",
+            "value": "on"
+        },
+        {
+            "topic": "lamps/l2",
+            "value": "off"
+        },
+        {
+            "topic": "lamps/l3",
+            "value": "on"
+        },
+        {
+            "topic": "lamps/l4",
+            "value": "off"
+        },
+        {
+            "topic": "doors/d1",
+            "value": "open"
+        },
+        {
+            "topic": "doors/d2",
+            "value": "closed"
+        },
+        {
+            "topic": "temps/t1",
+            "value": "23"
+        }
+    ]
+}
