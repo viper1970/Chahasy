@@ -8,6 +8,9 @@ function setPage(url){
 			items:items,
 			currentPage: url
 		}).then ( function(){ 
+			// remove existing handlers if any
+			$('.btn-toggle').unbind('click');
+			// and add a click handler
 			$('.btn-toggle').click(function() {
 				var topic = $(this).data('topic');
 			
