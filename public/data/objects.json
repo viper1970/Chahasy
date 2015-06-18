@@ -1,0 +1,66 @@
+{
+	"comment" : "File with the configuration of the pages, this file might be replaced by an MQTT feed later on",
+	"pages" : [{
+			"id" : "p1",
+			"label" : "Favorites",
+			"url" : "#favorites",
+			"items" : ["l1", "l2", "l3", "l4", "d1", "d2", "t1"]
+		}, {
+			"id" : "p2",
+			"label" : "Living room",
+			"url" : "#living",
+			"items" : ["l1", "l2","d1","t1"]
+		}, {
+			"id" : "p3",
+			"label" : "Kitchen",
+			"url" : "#kitchen",
+			"items" : ["l3", "d2"]
+		}, {
+			"id" : "p4",
+			"label" : "Hallway",
+			"url" : "#hallway",
+			"items" : ["l4", "d1","d2"]
+		},{
+			"id" : "p5",
+			"label" : "Setup",
+			"url" : "setup.html"
+		}
+	],
+	"items" : [{
+			"id" : "l1",
+			"label" : "Lamp 1",
+			"type" : "toggle",
+			"topic" : "lamps/l1"
+		}, {
+			"id" : "l2",
+			"label" : "Lamp 2",
+			"type" : "toggle",
+			"topic" : "lamps/l2"
+		}, {	
+			"id" : "l3",
+			"label" : "Lamp 3",
+			"type" : "toggle",
+			"topic" : "lamps/l3"
+		}, {
+			"id" : "l4",
+			"label" : "Lamp 4",
+			"type" : "toggle",
+			"topic" : "lamps/l4"
+		}, {
+			"id" : "d1",
+			"label" : "Door 1",
+			"type" : "output",
+			"topic" : "doors/d1"
+		}, {
+			"id" : "d2",
+			"label" : "Door 2",
+			"type" : "output",
+			"topic" : "doors/d2"
+		}, {
+			"id" : "t1",
+			"label" : "Temp 1",
+			"type" : "temp",
+			"topic" : "temps/t1"
+		}
+	]
+}
