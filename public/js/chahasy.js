@@ -21,6 +21,7 @@ function setPage(url){
 					topicIdx[topic].value = "on";
 				}
 				console.log("Toggle event detected for", topicIdx[topic].label, " linked to topic ", topic, " now switching to ",topicIdx[topic].value);
+				client.publish(topic, topicIdx[topic].value);
 				ractive.update();
 			})
 		});
@@ -44,6 +45,15 @@ function loadData(){
 			setVal(item.topic, item.value);
 		}
 	});
+}
+
+function startMQTT(){
+	client = mqtt.connect();
+    client.subscribe(Object.keys(topicIdx));
+    client.on("message", function(topic, payload) {
+		console.log("mqtt message received ",topic,payload);
+        setVal(topic,payload);
+    });
 }
 
 
@@ -85,9 +95,10 @@ function init(data){
 	window.onhashchange = function(){ setPage(location.hash)};
 	// start loading data, this should be replaced by listening to MQTT
 	loadData();
+	startMQTT();
 }	
 
-var currentPage, pages=[], items={}, pageIdx={}, topicIdx={}; 
+var currentPage, pages=[], items={}, pageIdx={}, topicIdx={}, client; 
 
 // create the ractive object
 var ractive = new Ractive({

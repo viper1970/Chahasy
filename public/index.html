@@ -73,6 +73,9 @@
 			{{#if (type == "temp")}}
 			<span class="pull-right">{{ formatTemp(value) }}</span>
 			{{/if}}
+			{{#if (type == "dimmable")}}
+			<span class="pull-right">{{ formatTemp(value) }}</span>
+			{{/if}}
 		  </li>
 		  {{/items}}
 		</ul>
@@ -87,6 +90,8 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src='http://cdn.ractivejs.org/latest/ractive.js'></script>
+	<!-- MQTT client over websockets, automagically served by mosca -->
+	<script src="/mqtt.js"></script>
 	<!-- the application -->
 	<script src='js/chahasy.js'></script>
   </body>
