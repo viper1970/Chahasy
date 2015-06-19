@@ -1,5 +1,5 @@
 {
-	"comment" : "File with the configuration of the pages, this file might be replaced by an MQTT feed later on",
+	"comment" : "Demo object data",
 	"pages" : [{
 			"id" : "p1",
 			"label" : "Favorites",

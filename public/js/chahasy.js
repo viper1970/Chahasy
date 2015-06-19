@@ -13,7 +13,10 @@ function setPage(url){
 			// and add a click handler
 			$('.btn-toggle').click(function() {
 				var topic = $(this).data('topic');
-			
+				// setting the value should not be done in the use interface, 
+				// the ui should send the command and pickup the result
+				// for now we do this in the browser
+				
 				if (topicIdx[topic].value == "on"){
 					topicIdx[topic].value = "off";
 				}
@@ -36,29 +39,7 @@ function setVal(topic,value){
 		}
 }
 	
-
-// load data via JSON, this should be replaced by listening to MQTT
-function loadData(){
-	$.getJSON('data/values.json').done(function (data) { 
-		for(var i = 0; i < data.values.length ; i++) {
-			var item = data.values[i];
-			setVal(item.topic, item.value);
-		}
-	});
-}
-
-function startMQTT(){
-	client = mqtt.connect();
-    client.subscribe(Object.keys(topicIdx));
-    client.on("message", function(topic, payload) {
-		console.log("mqtt message received ",topic,payload);
-        setVal(topic,payload);
-    });
-}
-
-
-
-function init(data){
+function initUI(data){
 	var itemIdx={};
 	// Index items 
 	for(var i = 0; i < data.items.length ; i++) {
@@ -93,12 +74,11 @@ function init(data){
 	setPage(currentPage);
 	// listen for URL changes
 	window.onhashchange = function(){ setPage(location.hash)};
-	// start loading data, this should be replaced by listening to MQTT
-	loadData();
-	startMQTT();
+	// subscribe to all topics found
+	mqttClient.subscribe(Object.keys(topicIdx));
 }	
 
-var currentPage, pages=[], items={}, pageIdx={}, topicIdx={}, client; 
+var currentPage, pages=[], items={}, pageIdx={}, topicIdx={}; 
 
 // create the ractive object
 var ractive = new Ractive({
@@ -109,6 +89,32 @@ var ractive = new Ractive({
 	}
 });
 
-// load setup via JSON, this should be replaced by listening to MQTT
- $.getJSON('data/objects.json').done(function (data) { init(data)});
+// start MQTT
+var mqttClient = mqtt.connect();
+
+// setup the listener for connect messages
+mqttClient.on("connect", function(){
+	mqttClient.subscribe("config/chahasy/ui");
+});
+
+// setup the listener for published messages
+mqttClient.on("message", function(topic, payload) {
+	var message = payload.toString();
+	if (topic == "config/chahasy/ui"){
+		console.log("Received config message:", message);
+		var configData= JSON.parse(message);
+		initUI(configData);
+	}
+	else{ 
+		setVal(topic,message);
+	}
+});
+
+
+
+
+
+
+
+
  
