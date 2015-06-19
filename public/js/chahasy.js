@@ -23,8 +23,9 @@ function setPage(url){
 				else{
 					topicIdx[topic].value = "on";
 				}
-				console.log("Toggle event detected for", topicIdx[topic].label, " linked to topic ", topic, " now switching to ",topicIdx[topic].value);
-				client.publish(topic, topicIdx[topic].value);
+				// publish the result via MQTT
+				publish(topic, topicIdx[topic].value);
+				// and update the UI
 				ractive.update();
 			})
 		});
@@ -37,6 +38,11 @@ function setVal(topic,value){
 			topicIdx[topic].value = value;
 			ractive.update();
 		}
+}
+
+function publish(topic,value){
+	console.log('publishing topic:',topic,"value:",value);
+	mqttClient.publish(topic, value);
 }
 	
 function initUI(data){
@@ -85,7 +91,8 @@ var ractive = new Ractive({
 	el: renderOutput,
 	template: '#renderTemplate',
 	data: {
-		formatTemp: function(val){ if (val) { return val + '°' }}
+		formatTemp: function(val){ if (val) { return val + '°' }},
+		formatDimmer: function(topic){ if (topic) { return 'publish("'+topic+'",value)'}}
 	}
 });
 

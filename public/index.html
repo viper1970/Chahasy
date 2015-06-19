@@ -73,8 +73,16 @@
 			{{#if (type == "temp")}}
 			<span class="pull-right">{{ formatTemp(value) }}</span>
 			{{/if}}
-			{{#if (type == "dimmable")}}
-			<span class="pull-right">{{ formatTemp(value) }}</span>
+			{{#if ((type == "dimmer") && value)}}
+			<span class="pull-right"><input type="range" min="0" max="255" value="{{value}}" oninput="{{formatDimmer(topic)}}" list="dimsettings"></span>
+			<datalist id="dimsettings">
+				<option>0</option>
+				<option>51</option>
+				<option>102</option>
+				<option>153</option>
+				<option>204</option>
+				<option>255</option>
+			</datalist>
 			{{/if}}
 		  </li>
 		  {{/items}}

@@ -34,7 +34,7 @@
 		}, {
 			"id" : "l2",
 			"label" : "Lamp 2",
-			"type" : "toggle",
+			"type" : "dimmer",
 			"topic" : "lamps/l2"
 		}, {	
 			"id" : "l3",

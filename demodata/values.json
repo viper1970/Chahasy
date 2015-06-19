@@ -7,7 +7,7 @@
         },
         {
             "topic": "lamps/l2",
-            "value": "off"
+            "value": "200"
         },
         {
             "topic": "lamps/l3",
