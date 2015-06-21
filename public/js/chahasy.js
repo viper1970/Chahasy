@@ -92,7 +92,8 @@ var ractive = new Ractive({
 	template: '#renderTemplate',
 	data: {
 		formatTemp: function(val){ if (val) { return val + '°' }},
-		formatDimmer: function(topic){ if (topic) { return 'publish("'+topic+'",value)'}}
+		publishDimmer: function(topic){ if (topic) { return 'publish("'+topic+'",value)'}},
+		publishClick: function(topic){ if (topic) { return 'publish("'+topic+'","clicked")'}}
 	}
 });
 
