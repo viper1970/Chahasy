@@ -1,0 +1,1 @@
+mosca -v --http-port 8080 --http-bundle --http-static ./public --db mqttdb

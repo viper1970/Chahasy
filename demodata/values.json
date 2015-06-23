@@ -1,5 +1,5 @@
 {
-    "comment": "File with values for each of the sensors, this file should be replaced by an MQTT feed later on",
+    "comment": "demo sensor data",
     "values": [
         {
             "topic": "lamps/l1",
@@ -7,7 +7,7 @@
         },
         {
             "topic": "lamps/l2",
-            "value": "off"
+            "value": "200"
         },
         {
             "topic": "lamps/l3",

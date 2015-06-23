@@ -1,10 +1,10 @@
 {
-	"comment" : "File with the configuration of the pages, this file might be replaced by an MQTT feed later on",
+	"comment" : "Demo object data",
 	"pages" : [{
 			"id" : "p1",
 			"label" : "Favorites",
 			"url" : "#favorites",
-			"items" : ["l1", "l2", "l3", "l4", "d1", "d2", "t1"]
+			"items" : ["l1", "l2", "l3", "l4", "d1", "d2", "t1","g1"]
 		}, {
 			"id" : "p2",
 			"label" : "Living room",
@@ -34,7 +34,7 @@
 		}, {
 			"id" : "l2",
 			"label" : "Lamp 2",
-			"type" : "toggle",
+			"type" : "dimmer",
 			"topic" : "lamps/l2"
 		}, {	
 			"id" : "l3",
@@ -61,6 +61,12 @@
 			"label" : "Temp 1",
 			"type" : "temp",
 			"topic" : "temps/t1"
+		}, {
+			"id" : "g1",
+			"label" : "All lights",
+			"type" : "button",
+			"btntext": "Off",
+			"topic" : "groups/g1"
 		}
 	]
 }

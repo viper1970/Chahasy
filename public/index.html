@@ -56,6 +56,9 @@
 		<ul class="list-group">
 		  {{#items}}
 		  <li class="list-group-item">{{label}}
+		    {{#if (type == "button")}}
+			<span class="pull-right"><button class="btn btn-default" onclick="{{publishClick(topic)}}">{{btntext}}</button></span>
+			{{/if}}
 		    {{#if (type == "toggle")}}
 			<div class="btn-group btn-toggle pull-right" data-topic="{{topic}}"> 
 				{{#if (value == "on")}}
@@ -73,6 +76,17 @@
 			{{#if (type == "temp")}}
 			<span class="pull-right">{{ formatTemp(value) }}</span>
 			{{/if}}
+			{{#if ((type == "dimmer") && value)}}
+			<span class="pull-right"><input type="range" min="0" max="255" value="{{value}}" oninput="{{publishDimmer(topic)}}" list="dimsettings"></span>
+			<datalist id="dimsettings">
+				<option>0</option>
+				<option>51</option>
+				<option>102</option>
+				<option>153</option>
+				<option>204</option>
+				<option>255</option>
+			</datalist>
+			{{/if}}
 		  </li>
 		  {{/items}}
 		</ul>
@@ -87,6 +101,8 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src='http://cdn.ractivejs.org/latest/ractive.js'></script>
+	<!-- MQTT client over websockets, automagically served by mosca -->
+	<script src="/mqtt.js"></script>
 	<!-- the application -->
 	<script src='js/chahasy.js'></script>
   </body>

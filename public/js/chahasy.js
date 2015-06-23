@@ -13,14 +13,19 @@ function setPage(url){
 			// and add a click handler
 			$('.btn-toggle').click(function() {
 				var topic = $(this).data('topic');
-			
+				// setting the value should not be done in the use interface, 
+				// the ui should send the command and pickup the result
+				// for now we do this in the browser
+				
 				if (topicIdx[topic].value == "on"){
 					topicIdx[topic].value = "off";
 				}
 				else{
 					topicIdx[topic].value = "on";
 				}
-				console.log("Toggle event detected for", topicIdx[topic].label, " linked to topic ", topic, " now switching to ",topicIdx[topic].value);
+				// publish the result via MQTT
+				publish(topic, topicIdx[topic].value);
+				// and update the UI
 				ractive.update();
 			})
 		});
@@ -34,21 +39,13 @@ function setVal(topic,value){
 			ractive.update();
 		}
 }
-	
 
-// load data via JSON, this should be replaced by listening to MQTT
-function loadData(){
-	$.getJSON('data/values.json').done(function (data) { 
-		for(var i = 0; i < data.values.length ; i++) {
-			var item = data.values[i];
-			setVal(item.topic, item.value);
-		}
-	});
+function publish(topic,value){
+	console.log('publishing topic:',topic,"value:",value);
+	mqttClient.publish(topic, value);
 }
-
-
-
-function init(data){
+	
+function initUI(data){
 	var itemIdx={};
 	// Index items 
 	for(var i = 0; i < data.items.length ; i++) {
@@ -83,8 +80,8 @@ function init(data){
 	setPage(currentPage);
 	// listen for URL changes
 	window.onhashchange = function(){ setPage(location.hash)};
-	// start loading data, this should be replaced by listening to MQTT
-	loadData();
+	// subscribe to all topics found
+	mqttClient.subscribe(Object.keys(topicIdx));
 }	
 
 var currentPage, pages=[], items={}, pageIdx={}, topicIdx={}; 
@@ -94,10 +91,38 @@ var ractive = new Ractive({
 	el: renderOutput,
 	template: '#renderTemplate',
 	data: {
-		formatTemp: function(val){ if (val) { return val + '°' }}
+		formatTemp: function(val){ if (val) { return val + '°' }},
+		publishDimmer: function(topic){ if (topic) { return 'publish("'+topic+'",value)'}},
+		publishClick: function(topic){ if (topic) { return 'publish("'+topic+'","clicked")'}}
 	}
 });
 
-// load setup via JSON, this should be replaced by listening to MQTT
- $.getJSON('data/objects.json').done(function (data) { init(data)});
+// start MQTT
+var mqttClient = mqtt.connect();
+
+// setup the listener for connect messages
+mqttClient.on("connect", function(){
+	mqttClient.subscribe("config/chahasy/ui");
+});
+
+// setup the listener for published messages
+mqttClient.on("message", function(topic, payload) {
+	var message = payload.toString();
+	if (topic == "config/chahasy/ui"){
+		console.log("Received config message:", message);
+		var configData= JSON.parse(message);
+		initUI(configData);
+	}
+	else{ 
+		setVal(topic,message);
+	}
+});
+
+
+
+
+
+
+
+
  
